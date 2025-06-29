@@ -6129,6 +6129,7 @@ GameObject:
   - component: {fileID: 793020869}
   - component: {fileID: 793020870}
   - component: {fileID: 793020871}
+  - component: {fileID: 793020872}
   m_Layer: 2
   m_Name: Holder
   m_TagString: Untagged
@@ -6276,6 +6277,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &793020872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793020867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d302ecafe19c374c8b545d644b8d510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeaponType: GUN
+  changeWeaponDelayTime: 0.1
+  changeWeaponEndDelayTime: 0.1
+  guns:
+  - {fileID: 17305635}
+  hands:
+  - {fileID: 7693154480375040427}
+  theGunController: {fileID: 793020870}
+  theHandController: {fileID: 793020869}
 --- !u!1001 &858104415
 PrefabInstance:
   m_ObjectHideFlags: 0
