@@ -35,8 +35,10 @@ public class PlayerControler : MonoBehaviour
     private float cameraRotationLimit;
     private float currentCameraRotationX = 0f;
 
+    [Header("필요한 컴포넌트 연결")]
     [SerializeField]
     private Camera theCamera;
+    private GunController theGunController;
     private Rigidbody myRigid;
     private CapsuleCollider capsuleCollider;
     // Start is called before the first frame update
@@ -47,6 +49,7 @@ public class PlayerControler : MonoBehaviour
         applySpeed = walkSpeed;
         originPosY = theCamera.transform.localPosition.y;
         applyCrouchPosY = originPosY;
+        theGunController = FindObjectOfType<GunController>();
     }
 
     // Update is called once per frame
@@ -145,6 +148,9 @@ public class PlayerControler : MonoBehaviour
         {
             Crouch();
         }
+
+        theGunController.CancelADS();
+
         isRun = true;
         applySpeed = runSpeed;
     }

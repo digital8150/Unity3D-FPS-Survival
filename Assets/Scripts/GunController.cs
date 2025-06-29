@@ -48,6 +48,15 @@ public class GunController : MonoBehaviour
         }
     }
 
+    public void CancelADS()
+    {
+        if (isADSMode)
+        {
+            ADS();
+        }
+
+    }
+
     void TryFire()
     {
         if(Input.GetButton("Fire1") && currentFireRate <= 0 && !isReload)
@@ -60,6 +69,7 @@ public class GunController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && !isReload && currentGun.currentBulletCount < currentGun.reloadBulletCount)
         {
+            CancelADS();
             StartCoroutine(ReloadCoroutine());
         }
     }
@@ -85,7 +95,7 @@ public class GunController : MonoBehaviour
     {
         while (currentGun.transform.localPosition != currentGun.ADSOriginPos)
         {
-            currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, currentGun.ADSOriginPos, 0.5f);
+            currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, currentGun.ADSOriginPos, 0.02f);
             yield return null;
         }
     }
@@ -94,7 +104,7 @@ public class GunController : MonoBehaviour
     {
         while (currentGun.transform.localPosition != originPos)
         {
-            currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, originPos, 0.5f);
+            currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, originPos, 0.02f);
             yield return null;
         }
     }
@@ -109,6 +119,7 @@ public class GunController : MonoBehaviour
             }
             else
             {
+                CancelADS();
                 StartCoroutine(ReloadCoroutine());
             }
         }
@@ -120,7 +131,50 @@ public class GunController : MonoBehaviour
         currentFireRate = currentGun.fireRate; //연사 속도 재계산
         PlaySE(currentGun.fire_sound);
         currentGun.muzleFlash.Play();
+
+        //총기 반동 코루틴
+        StopAllCoroutines();
+        StartCoroutine(RetroActionCoroutine());
         Debug.Log("총알 발사함");
+    }
+
+    IEnumerator RetroActionCoroutine()
+    {
+        Vector3 recoilBack = new Vector3(currentGun.retroActionForce, originPos.y, originPos.z);
+        Vector3 retroActionRecoilBack = new Vector3(currentGun.retroActionADSForce, currentGun.ADSOriginPos.y, currentGun.ADSOriginPos.z);
+
+        if (!isADSMode)
+        {
+            currentGun.transform.localPosition = originPos;
+            //반동시작
+            while(currentGun.transform.localPosition.x <= currentGun.retroActionForce - 0.02f)
+            {
+                currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, recoilBack, 0.2f);
+                yield return null;
+            }
+            //원위치
+            while(currentGun.transform.localPosition != originPos)
+            {
+                currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, originPos, 0.05f);
+                yield return null;
+            }
+        }
+        else
+        {
+            currentGun.transform.localPosition = currentGun.ADSOriginPos;
+            //반동시작
+            while (currentGun.transform.localPosition.x <= currentGun.retroActionADSForce - 0.02f)
+            {
+                currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, retroActionRecoilBack, 0.2f);
+                yield return null;
+            }
+            //원위치
+            while (currentGun.transform.localPosition != currentGun.ADSOriginPos)
+            {
+                currentGun.transform.localPosition = Vector3.Lerp(currentGun.transform.localPosition, currentGun.ADSOriginPos, 0.05f);
+                yield return null;
+            }
+        }
     }
 
     IEnumerator ReloadCoroutine()
