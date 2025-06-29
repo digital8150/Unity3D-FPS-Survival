@@ -11,6 +11,7 @@ public class Gun : MonoBehaviour
     public float reloadTime;
 
     public int damage; //총의 데미지
+
     public int reloadBulletCount; //총알 재장전 개수
     public int currentBulletCount;
     public int maxBulletCount; // 최대 소유 가능 총알 개수
