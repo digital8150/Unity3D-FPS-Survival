@@ -16,7 +16,8 @@ public class GunController : MonoBehaviour
 
     //상태 변수
     private bool isReload = false;
-    private bool isADSMode = false;
+    [HideInInspector]
+    public bool isADSMode = false;
 
     private Vector3 originPos; //원래 포지션 값 
 
