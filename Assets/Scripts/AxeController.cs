@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
 using UnityEngine;
 
-public class HandController : MeleeWeaponController
+public class AxeController : MeleeWeaponController
 {
     public static bool isActivate = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -20,7 +20,7 @@ public class HandController : MeleeWeaponController
     {
         while (isSwing)
         {
-            if (CheckObject())
+            if(CheckObject())
             {
                 isSwing = false;
                 Debug.Log(hitInfo.transform.name);

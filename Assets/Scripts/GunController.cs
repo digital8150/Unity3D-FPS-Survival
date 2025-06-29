@@ -5,7 +5,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     //ÇöÀç È°¼ºÈ­
-    public static bool isActivate = true;
+    public static bool isActivate = false;
 
     //ÀåÂøµÈ ÃÑ
     [SerializeField]
@@ -40,8 +40,7 @@ public class GunController : MonoBehaviour
         originPos = Vector3.zero;
         theCrosshair = FindObjectOfType<Crosshair>();
         
-        WeaponManager.currentWeapon = currentGun.GetComponent<Transform>();
-        WeaponManager.currentWeaponAnim = currentGun.anim;
+
     }
 
     // Update is called once per frame
