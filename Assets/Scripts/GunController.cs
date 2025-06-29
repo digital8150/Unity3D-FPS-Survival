@@ -27,12 +27,14 @@ public class GunController : MonoBehaviour
     private Camera theCam;
     [SerializeField]
     private GameObject hitEffectPrefab;
+    private Crosshair theCrosshair;
 
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         originPos = Vector3.zero;
+        theCrosshair = FindObjectOfType<Crosshair>();
     }
 
     // Update is called once per frame
@@ -88,6 +90,7 @@ public class GunController : MonoBehaviour
     void ADS()
     {
         isADSMode = !isADSMode;
+        theCrosshair.ADSAnimation(isADSMode);
         currentGun.anim.SetBool("FineSightMode", isADSMode);
 
         if (isADSMode)
@@ -138,10 +141,12 @@ public class GunController : MonoBehaviour
 
     void Shoot() //발사 후
     {
+        theCrosshair.FireAnimation();
         currentGun.currentBulletCount--;
         currentFireRate = currentGun.fireRate; //연사 속도 재계산
         PlaySE(currentGun.fire_sound);
         currentGun.muzleFlash.Play();
+        
         Hit(); //히트스캔 방식
 
         //총기 반동 코루틴
@@ -151,7 +156,12 @@ public class GunController : MonoBehaviour
 
     void Hit()
     {
-        if(Physics.Raycast(theCam.transform.position, theCam.transform.forward, out hitInfo, currentGun.range))
+
+        if(Physics.Raycast(theCam.transform.position, theCam.transform.forward + 
+            new Vector3(Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy, theCrosshair.GetAccuracy() + currentGun.accuracy),
+                        Random.Range(-theCrosshair.GetAccuracy() - currentGun.accuracy, theCrosshair.GetAccuracy() + currentGun.accuracy),
+                        0)
+            , out hitInfo, currentGun.range))
         {
             GameObject clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(clone, 2f);
@@ -237,5 +247,10 @@ public class GunController : MonoBehaviour
     public Gun GetGun()
     {
         return currentGun;
+    }
+
+    public bool GetADSMode()
+    {
+        return isADSMode;
     }
 }
