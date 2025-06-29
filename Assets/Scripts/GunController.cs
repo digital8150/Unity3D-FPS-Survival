@@ -4,25 +4,35 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-
+    //장착된 총
     [SerializeField]
     private Gun currentGun;
 
+    //연사 속도 계산
     private float currentFireRate;
 
+    //상태 변수
     private bool isReload = false;
     private bool isADSMode = false;
 
-    [SerializeField]
     private Vector3 originPos; //원래 포지션 값 
 
+    //효과음 재생
     private AudioSource audioSource;
+
+    private RaycastHit hitInfo;
+
+    [Header("필요한 컴포넌트 연결")]
+    [SerializeField]
+    private Camera theCam;
+    [SerializeField]
+    private GameObject hitEffectPrefab;
 
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        //originPos = transform.localPosition;
+        originPos = Vector3.zero;
     }
 
     // Update is called once per frame
@@ -34,6 +44,7 @@ public class GunController : MonoBehaviour
         TryADS();
     }
 
+    //연사속도 재계산
     void GunFireRateCalc()
     {
         if(currentFireRate > 0)
@@ -131,14 +142,23 @@ public class GunController : MonoBehaviour
         currentFireRate = currentGun.fireRate; //연사 속도 재계산
         PlaySE(currentGun.fire_sound);
         currentGun.muzleFlash.Play();
+        Hit(); //히트스캔 방식
 
         //총기 반동 코루틴
         StopAllCoroutines();
         StartCoroutine(RetroActionCoroutine());
-        Debug.Log("총알 발사함");
     }
 
-    IEnumerator RetroActionCoroutine()
+    void Hit()
+    {
+        if(Physics.Raycast(theCam.transform.position, theCam.transform.forward, out hitInfo, currentGun.range))
+        {
+            GameObject clone = Instantiate(hitEffectPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+            Destroy(clone, 2f);
+        }
+    }
+
+    IEnumerator RetroActionCoroutine() //반동
     {
         Vector3 recoilBack = new Vector3(currentGun.retroActionForce, originPos.y, originPos.z);
         Vector3 retroActionRecoilBack = new Vector3(currentGun.retroActionADSForce, currentGun.ADSOriginPos.y, currentGun.ADSOriginPos.z);
@@ -177,7 +197,7 @@ public class GunController : MonoBehaviour
         }
     }
 
-    IEnumerator ReloadCoroutine()
+    IEnumerator ReloadCoroutine() //재장전 코루틴
     {
         if(currentGun.carryBulletCount > 0)
         {
