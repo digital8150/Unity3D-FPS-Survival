@@ -46,6 +46,8 @@ public class PlayerControler : MonoBehaviour
     private Rigidbody myRigid;
     private CapsuleCollider capsuleCollider;
     private Crosshair theCrosshair;
+    private StatusController statusController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +60,8 @@ public class PlayerControler : MonoBehaviour
         applySpeed = walkSpeed;
         originPosY = theCamera.transform.localPosition.y;
         applyCrouchPosY = originPosY;
+
+        statusController = FindObjectOfType<StatusController>();
     }
 
     // Update is called once per frame
@@ -143,6 +147,7 @@ public class PlayerControler : MonoBehaviour
         {
             Crouch();
         }
+        statusController.DecreaseStamina(100);
         myRigid.velocity = transform.up * jumpForce;
     }
 
@@ -169,6 +174,7 @@ public class PlayerControler : MonoBehaviour
 
         isRun = true;
         theCrosshair.RunningAnimation(isRun);
+        statusController.DecreaseStamina(1);
         applySpeed = runSpeed;
     }
 
