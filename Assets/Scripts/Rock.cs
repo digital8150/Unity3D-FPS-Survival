@@ -20,17 +20,15 @@ public class Rock : MonoBehaviour
     [SerializeField]
     private GameObject go_effect_prefabs;
 
+    [Header("필요한 사운드 이름")]
     [SerializeField]
-    private AudioSource audioSource;
+    private string strikeSound;
     [SerializeField]
-    private AudioClip effectSound1;
-    [SerializeField]
-    private AudioClip effectSound2;
+    private string destorySound;
 
     public void Mining()
     {
-        audioSource.clip = effectSound1;
-        audioSource.Play();
+        SoundManager.instance.PlaySE(strikeSound);
         var clone = Instantiate(go_effect_prefabs, col.bounds.center, Quaternion.identity);
         Destroy(clone, destroyTime);
         hp--;
@@ -42,8 +40,7 @@ public class Rock : MonoBehaviour
 
     void Destruction()
     {
-        audioSource.clip = effectSound2;
-        audioSource.Play();
+        SoundManager.instance.PlaySE(destorySound);
         col.enabled = false;
         Destroy(go_rock);
         go_debris.SetActive(true);
