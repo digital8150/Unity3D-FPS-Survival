@@ -19,6 +19,8 @@ public class actionController : MonoBehaviour
     [Header("필요한 컴포넌트 연결")]
     [SerializeField]
     private Text actionText;
+    [SerializeField]
+    private Inventory theInventory;
 
 
     // Update is called once per frame
@@ -45,6 +47,7 @@ public class actionController : MonoBehaviour
             if(hitInfo.transform != null)
             {
                 Debug.Log($"{hitInfo.transform.GetComponent<ItemPickup>().item.itemName}를 획득했습니다.");
+                theInventory.AcquireItem(hitInfo.transform.GetComponent<ItemPickup>().item);
                 Destroy(hitInfo.transform.gameObject);
                 ItemInfoDisappear();
             }
