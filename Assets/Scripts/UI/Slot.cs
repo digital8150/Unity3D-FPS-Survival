@@ -2,18 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public Item item;
     public int itemCount;
     public Image itemImage; //아이템의 이미지
-
     [Header("필요한 컴포넌트 연결")]
     [SerializeField]
     private Text text_Count;
     [SerializeField]
     private GameObject go_Count_Image;
+
+    private WeaponManager weaponManager;
+
+    void Start()
+    {
+        weaponManager = FindObjectOfType<WeaponManager>();
+    }
 
     //이미지 투명도 조절
     void SetColor(float _alpha)
@@ -66,6 +73,70 @@ public class Slot : MonoBehaviour
         if(itemCount <= 0)
         {
             ClearSlot();
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Right && item != null)
+        {
+            if(item.itemType == Item.ItemType.Equipment)
+            {
+                //장착
+                StartCoroutine(weaponManager.ChangeWeaponCoroutine(item.weaponType, item.itemName));
+            }
+            else
+            {
+                Debug.Log($"{item.itemName}을 사용했습니다.");
+                SetSlotCount(-1);
+            }
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (item == null) return;
+        DragSlot.instance.dragSlot = this;
+        DragSlot.instance.DragSetImage(itemImage);
+        DragSlot.instance.transform.position = eventData.position;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (item == null) return;
+        DragSlot.instance.transform.position = eventData.position;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Debug.Log("OnEndDrag");
+        DragSlot.instance.SetColor(0);
+        DragSlot.instance.dragSlot = null;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if(DragSlot.instance.dragSlot != null)
+        {
+            ChangeSlot();
+        }
+        Debug.Log("OnDrop");
+    }
+
+    void ChangeSlot()
+    {
+        Item tempItem = item;
+        int _tempItemCount = itemCount;
+
+        AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+    
+        if(tempItem != null)
+        {
+            DragSlot.instance.dragSlot.AddItem(tempItem, _tempItemCount);
+        }
+        else
+        {
+            DragSlot.instance.dragSlot.ClearSlot();
         }
     }
 }

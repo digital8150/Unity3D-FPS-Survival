@@ -72,10 +72,13 @@ public class PlayerControler : MonoBehaviour
         TryRun();
         TryCrouch();
         Move();
-        
 
-        CameraRotate();
-        CharacterRotate();
+        if (Inventory.inventoryActivated == false)
+        {
+            CameraRotate();
+            CharacterRotate();
+        }
+
     }
 
     private void FixedUpdate()
