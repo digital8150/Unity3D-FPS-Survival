@@ -14,12 +14,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     private Text text_Count;
     [SerializeField]
     private GameObject go_Count_Image;
-
-    private WeaponManager weaponManager;
+    private ItemEffectDatabase itemEffectDatabase;
 
     void Start()
     {
-        weaponManager = FindObjectOfType<WeaponManager>();
+        itemEffectDatabase = FindObjectOfType<ItemEffectDatabase>();
     }
 
     //이미지 투명도 조절
@@ -80,16 +79,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     {
         if(eventData.button == PointerEventData.InputButton.Right && item != null)
         {
-            if(item.itemType == Item.ItemType.Equipment)
-            {
-                //장착
-                StartCoroutine(weaponManager.ChangeWeaponCoroutine(item.weaponType, item.itemName));
-            }
-            else
-            {
-                Debug.Log($"{item.itemName}을 사용했습니다.");
-                SetSlotCount(-1);
-            }
+            itemEffectDatabase.UseItem(item);
+            if(item.itemType == Item.ItemType.Used) SetSlotCount(-1);
         }
     }
 
