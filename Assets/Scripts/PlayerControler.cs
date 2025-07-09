@@ -71,7 +71,7 @@ public class PlayerControler : MonoBehaviour
         TryJump();
         TryRun();
         TryCrouch();
-        Move();
+        
 
         if (Inventory.inventoryActivated == false)
         {
@@ -84,6 +84,7 @@ public class PlayerControler : MonoBehaviour
     private void FixedUpdate()
     {
         MoveCheck();
+        Move();
     }
 
     private void TryCrouch()
