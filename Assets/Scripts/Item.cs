@@ -6,6 +6,8 @@ using UnityEngine;
 public class Item : ScriptableObject //게임 오브젝트에 부착할 필요 X
 {
     public string itemName; //아이템 이름
+    [TextArea]
+    public string itemDescription; //아이템 설명
     public ItemType itemType;
     public Sprite itemImage; //world
     public GameObject itemPrefab;

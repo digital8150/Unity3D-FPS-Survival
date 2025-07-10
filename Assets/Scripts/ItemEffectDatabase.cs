@@ -22,8 +22,20 @@ public class ItemEffectDatabase : MonoBehaviour
     [Header("필요한 컴포넌트 연결")]
     [SerializeField]
     private WeaponManager weaponManager;
+    [SerializeField]
+    private SlotToolTip slotToolTip;
 
     private const string HP = "HP", SP = "SP", DP = "DP", HUNGRY = "HUNGRY", THIRSTY = "THIRSTY", SATISFY = "SATISFY";
+
+    public void ShowToolTip(Item _item, Vector3 _pos)
+    {
+        slotToolTip.ShowToolTip(_item, _pos);
+    }
+
+    public void HideToolTip()
+    {
+        slotToolTip.HideToolTip();
+    }
 
     public void UseItem(Item _item)
     {
