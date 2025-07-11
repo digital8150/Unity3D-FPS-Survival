@@ -31,8 +31,12 @@ public class PickaxeController : MeleeWeaponController
                 if(hitInfo.transform.tag == "Rock")
                 {
                     hitInfo.transform.GetComponent<Rock>().Mining();
+                }else if(hitInfo.transform.tag == "NPC")
+                {
+                    SoundManager.instance.PlaySE("Animal_Hit");
+                    hitInfo.transform.GetComponent<Pig>().Damage(1, transform.position);
                 }
-                isSwing = false;
+                    isSwing = false;
                 Debug.Log(hitInfo.transform.name);
             }
             yield return null;

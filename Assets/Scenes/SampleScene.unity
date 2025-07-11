@@ -6329,9 +6329,10 @@ GameObject:
   - component: {fileID: 503974052}
   - component: {fileID: 503974051}
   - component: {fileID: 503974054}
+  - component: {fileID: 503974055}
   m_Layer: 0
   m_Name: Pig
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6394,12 +6395,125 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalName: Pig
   hp: 2
-  walkSpeed: 2
+  walkSpeed: 1
+  runSpeed: 4
   walkTime: 5
   waitTime: 4
+  runTime: 3
   anim: {fileID: 1576897256}
   rigid: {fileID: 503974052}
   boxCol: {fileID: 503974051}
+  sound_pig_normal:
+  - {fileID: 8300000, guid: 5e832b10efba49144a81b531a166a33c, type: 3}
+  - {fileID: 8300000, guid: 08badf7c0d196f74eb613c30ec7809f4, type: 3}
+  - {fileID: 8300000, guid: 3f38e56d3c6357c47957047a9f25bbde, type: 3}
+  sound_pig_hurt: {fileID: 8300000, guid: 02c8a82e84791b343954f0b821872514, type: 3}
+  sound_pig_dead: {fileID: 8300000, guid: a89e5f3c4739c2047868c31be182d152, type: 3}
+--- !u!82 &503974055
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503974050}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 5
+  MaxDistance: 15
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.29761252
+      value: 1
+      inSlope: -3.0011995
+      outSlope: -3.0011995
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5714213
+      value: 0.25489807
+      inSlope: -1.6993496
+      outSlope: -1.6993496
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.12964433
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.33346638
+      outSlope: -0.33346638
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.99435425
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &517475504
 GameObject:
   m_ObjectHideFlags: 0
@@ -7042,6 +7156,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1d7714411fe0efc468e33be3fe829e26, type: 3}
       propertyPath: m_Name
       value: pig
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1d7714411fe0efc468e33be3fe829e26, type: 3}
+      propertyPath: m_TagString
+      value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 8417361359673230750, guid: 1d7714411fe0efc468e33be3fe829e26, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -15964,6 +16082,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1bd36fc8b29770a4ebb87f121e87c3a1, type: 3}
   - name: Rock_Destory
     clip: {fileID: 8300000, guid: 779a603cd2d26324bad7ab103967dea9, type: 3}
+  - name: Animal_Hit
+    clip: {fileID: 8300000, guid: 898f9362004c82c4a844eecd94fc0607, type: 3}
   bgmSounds: []
 --- !u!4 &1810437595
 Transform:
