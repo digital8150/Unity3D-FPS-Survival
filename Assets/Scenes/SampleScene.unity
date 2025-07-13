@@ -6069,7 +6069,7 @@ GameObject:
   - component: {fileID: 381897533}
   - component: {fileID: 381897532}
   - component: {fileID: 381897531}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6329,6 +6329,7 @@ GameObject:
   - component: {fileID: 503974052}
   - component: {fileID: 503974051}
   - component: {fileID: 503974054}
+  - component: {fileID: 503974056}
   - component: {fileID: 503974055}
   m_Layer: 0
   m_Name: Pig
@@ -6514,6 +6515,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &503974056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503974050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f626f36824b6d9e43ac03c6dffcddd34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAngle: 130
+  viewDistance: 30
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &517475504
 GameObject:
   m_ObjectHideFlags: 0
@@ -7945,6 +7963,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMeleeWeapon: {fileID: 7693154480375040427}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!114 &793020870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7959,6 +7980,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGun: {fileID: 17305635}
   isADSMode: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
   theCam: {fileID: 963194227}
   hitEffectPrefab: {fileID: 961852022132954202, guid: 90f40db9c23b493498783f5dfc615684, type: 3}
 --- !u!82 &793020871
@@ -8113,6 +8137,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMeleeWeapon: {fileID: 9013621111689875039}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!114 &793020875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8126,6 +8153,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMeleeWeapon: {fileID: 3709093828181432914}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 243
 --- !u!1001 &880732544
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,6 +15,8 @@ public abstract class MeleeWeaponController : MonoBehaviour
     protected bool isSwing = false;
 
     protected RaycastHit hitInfo;
+    [SerializeField]
+    protected LayerMask layerMask = 0;
 
 
 
@@ -50,7 +52,7 @@ public abstract class MeleeWeaponController : MonoBehaviour
 
     protected bool CheckObject()
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, currentMeleeWeapon.range))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hitInfo, currentMeleeWeapon.range, layerMask))
         {
             return true;
         }
