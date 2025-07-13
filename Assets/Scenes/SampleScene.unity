@@ -6333,7 +6333,7 @@ GameObject:
   - component: {fileID: 503974055}
   m_Layer: 0
   m_Name: Pig
-  m_TagString: NPC
+  m_TagString: WeakAnimal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6398,18 +6398,19 @@ MonoBehaviour:
   hp: 2
   walkSpeed: 1
   runSpeed: 4
+  turningSpeed: 0.1
   walkTime: 5
   waitTime: 4
   runTime: 3
   anim: {fileID: 1576897256}
   rigid: {fileID: 503974052}
   boxCol: {fileID: 503974051}
-  sound_pig_normal:
+  sound_normal:
+  - {fileID: 8300000, guid: 3f38e56d3c6357c47957047a9f25bbde, type: 3}
   - {fileID: 8300000, guid: 5e832b10efba49144a81b531a166a33c, type: 3}
   - {fileID: 8300000, guid: 08badf7c0d196f74eb613c30ec7809f4, type: 3}
-  - {fileID: 8300000, guid: 3f38e56d3c6357c47957047a9f25bbde, type: 3}
-  sound_pig_hurt: {fileID: 8300000, guid: 02c8a82e84791b343954f0b821872514, type: 3}
-  sound_pig_dead: {fileID: 8300000, guid: a89e5f3c4739c2047868c31be182d152, type: 3}
+  sound_hurt: {fileID: 8300000, guid: 02c8a82e84791b343954f0b821872514, type: 3}
+  sound_dead: {fileID: 8300000, guid: a89e5f3c4739c2047868c31be182d152, type: 3}
 --- !u!82 &503974055
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7177,7 +7178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1d7714411fe0efc468e33be3fe829e26, type: 3}
       propertyPath: m_TagString
-      value: NPC
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8417361359673230750, guid: 1d7714411fe0efc468e33be3fe829e26, type: 3}
       propertyPath: m_Materials.Array.data[0]
